@@ -32,6 +32,7 @@ jobs:
           git add README.md
           git branch client-bump
           git switch client-bump
+          git pull
           git commit -m "Updated readme"
           git push --set-upstream origin client-bump
       - name: create pull request
