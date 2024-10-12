@@ -1,6 +1,10 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [workflow_dispatch]
+on: 
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
 jobs:
   Explore-GitHub-Actions:
     permissions:
@@ -25,6 +29,13 @@ jobs:
         run: |
           echo "Adding to readme.md" >> README.md
           git add README.md
+          git branch client-bump
+          git switch client-bump
           git commit -m "Updated readme"
-          git push
+          git push --set-upstream origin client-bump
+      - name: create pull request
+        run: |
+          gh pr create -B client-bump -H main --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
