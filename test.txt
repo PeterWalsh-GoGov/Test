@@ -1,2 +1,0 @@
-Hello there test
-Hello there testing a commit
